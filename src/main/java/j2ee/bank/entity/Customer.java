@@ -58,6 +58,18 @@ public class Customer implements Serializable {
 	
 	@Column(name="description")
 	private String description;
+	
+	@Column(name="accountType")
+	private String accountType;
+	
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
 
 	public Integer getRecipientNo() {
 		return recipientNo;
