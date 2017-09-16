@@ -40,6 +40,18 @@ public class Customer implements Serializable {
 	
 	@Column(name="email")
 	private String email;
+	
+	@Column(name="balance")
+	private Double balance;
+	
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
 
 	public int getCustomerId() {
 		return customerId;

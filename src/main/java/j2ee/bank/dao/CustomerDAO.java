@@ -19,7 +19,7 @@ public class CustomerDAO implements ICustomerDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Customer> getAllCustomers() {
-		String hql = "select firstName, middleName, lastName, address, phone, email from Customer order by customer_id";
+		String hql = "select firstName, middleName, lastName, address, phone, email, balance from Customer order by customer_id";
 		return (List<Customer>) entityManager.createQuery(hql).getResultList();
 	}
 
@@ -39,6 +39,7 @@ public class CustomerDAO implements ICustomerDAO {
 		cst.setLastName(customer.getLastName());
 		cst.setMiddleName(customer.getMiddleName());
 		cst.setPhone(customer.getPhone());
+		cst.setBalance(customer.getBalance());
 		entityManager.flush();
 	}
 
@@ -47,7 +48,7 @@ public class CustomerDAO implements ICustomerDAO {
 	}
 
 	public boolean customerExists(String username) {
-		String hql = "select firstName, middleName, lastName, address, phone, email from Customer where username=?";
+		String hql = "select firstName, middleName, lastName, address, phone, email, balance from Customer where username=?";
 		int count = entityManager.createQuery(hql).setParameter(1, username).getResultList().size();
 		return count > 0 ? true : false;
 	}
