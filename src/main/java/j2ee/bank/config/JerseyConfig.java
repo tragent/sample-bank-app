@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import j2ee.bank.endpoint.CustomerEndpoint;
 
 @Component
-@ApplicationPath("/spring-app")
+@ApplicationPath("/bank")
 public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
 		register(CustomerEndpoint.class);

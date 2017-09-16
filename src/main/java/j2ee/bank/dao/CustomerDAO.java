@@ -19,12 +19,16 @@ public class CustomerDAO implements ICustomerDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Customer> getAllCustomers() {
-		String hql = "select firstName, middleName, lastName, address, phone, email, balance from Customer order by customer_id";
+		String hql = "select firstName, middleName, lastName, address, phone, email, balance, accountNo, recipientNo, transferAmount, description from Customer order by customer_id";
 		return (List<Customer>) entityManager.createQuery(hql).getResultList();
 	}
 
 	public Customer getCustomerById(int customerId) {
 		return entityManager.find(Customer.class, customerId);
+	}
+	
+	public Customer getCustomerByUsername(String username) {
+		return entityManager.find(Customer.class, username);
 	}
 
 	public void addCustomer(Customer customer) {
@@ -39,6 +43,10 @@ public class CustomerDAO implements ICustomerDAO {
 		cst.setLastName(customer.getLastName());
 		cst.setMiddleName(customer.getMiddleName());
 		cst.setPhone(customer.getPhone());
+		cst.setPassword(customer.getPassword());
+		cst.setAccountNo(customer.getAccountNo());
+		cst.setTransferAmount(customer.getTransferAmount());
+		cst.setDescription(customer.getDescription());
 		cst.setBalance(customer.getBalance());
 		entityManager.flush();
 	}
@@ -47,9 +55,9 @@ public class CustomerDAO implements ICustomerDAO {
 		entityManager.remove(getCustomerById(customerId));
 	}
 
-	public boolean customerExists(String username) {
-		String hql = "select firstName, middleName, lastName, address, phone, email, balance from Customer where username=?";
-		int count = entityManager.createQuery(hql).setParameter(1, username).getResultList().size();
+	public boolean customerExists(String username, String password) {
+		String hql = "select firstName, middleName, lastName, address, phone, email, balance, accountNo, recipientNo, transferAmount, description from Customer where username=? and password=?";
+		int count = entityManager.createQuery(hql).setParameter(1, username).setParameter(2,  password).getResultList().size();
 		return count > 0 ? true : false;
 	}
 

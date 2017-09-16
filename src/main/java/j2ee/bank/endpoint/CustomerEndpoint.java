@@ -33,7 +33,7 @@ public class CustomerEndpoint {
 	private ICustomerService customerService;
 	
 	@GET
-	@Path("/details")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public Response getArticleDetails() {
 		List<Customer> customer = customerService.getAllCustomers();
@@ -57,7 +57,18 @@ public class CustomerEndpoint {
 			logger.info("Customer already exists.");
 			return Response.status(Status.CONFLICT).build();
 		}
-		return Response.created(URI.create("/spring-app/customer/" + customer.getCustomerId())).build();
+		return Response.created(URI.create("/bank/customer/" + customer.getCustomerId())).build();
+	}
+	
+	@POST
+	@Path("/login/{username}/{password}")
+	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	public Response loginCustomer(@PathParam("username") String username, @PathParam("password") String password) {
+		if(customerService.customerExists(username, password)) {
+			Customer customer = customerService.getCustomerByUsername(username);
+			return  Response.ok(customer).build();
+		}
+		return Response.noContent().build();
 	}
 	
 	@PUT

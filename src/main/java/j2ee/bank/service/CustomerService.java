@@ -22,9 +22,14 @@ public class CustomerService implements ICustomerService {
 		Customer obj = customerDAO.getCustomerById(customerId);
 		return obj;
 	}
+	
+	public Customer getCustomerByUsername(String username) {
+		Customer obj = customerDAO.getCustomerByUsername(username);
+		return obj;
+	}
 
 	public synchronized boolean addCustomer(Customer customer) {
-		if (customerDAO.customerExists(customer.getUsername())) {
+		if (customerDAO.customerExists(customer.getUsername(), customer.getPassword())) {
 			return false;
 		} else {
 			customerDAO.addCustomer(customer);
@@ -38,6 +43,13 @@ public class CustomerService implements ICustomerService {
 
 	public void deleteCustomer(int customerId) {
 		customerDAO.deleteCustomer(customerId);
+	}
+	
+	public synchronized boolean customerExists(String username, String password) {
+		if (customerDAO.customerExists(username, password)) {
+			return true;
+		} 
+		return false;
 	}
 
 }

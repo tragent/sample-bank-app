@@ -31,6 +31,9 @@ public class Customer implements Serializable {
 	
 	@Column(name="username")
 	private String username;
+	
+	@Column(name="password")
+	private String password;
 
 	@Column(name="phone")
 	private Integer phone;
@@ -44,6 +47,57 @@ public class Customer implements Serializable {
 	@Column(name="balance")
 	private Double balance;
 	
+	@Column(name="accountNo")
+	private Integer accountNo;
+	
+	@Column(name="transfer_recipient")
+	private Integer recipientNo;
+	
+	@Column(name="transfer_amount")
+	private Double transferAmount;
+	
+	@Column(name="description")
+	private String description;
+
+	public Integer getRecipientNo() {
+		return recipientNo;
+	}
+
+	public void setRecipientNo(Integer recipientNo) {
+		this.recipientNo = recipientNo;
+	}
+
+	public Integer getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(Integer accountNo) {
+		this.accountNo = accountNo;
+	}
+
+	public Double getTransferAmount() {
+		return transferAmount;
+	}
+
+	public void setTransferAmount(Double transferAmount) {
+		this.transferAmount = transferAmount;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Double getBalance() {
 		return balance;
