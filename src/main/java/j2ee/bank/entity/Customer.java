@@ -1,13 +1,20 @@
 package j2ee.bank.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="customer")
@@ -50,18 +57,22 @@ public class Customer implements Serializable {
 	@Column(name="accountNo")
 	private Integer accountNo;
 	
-	@Column(name="transfer_recipient")
-	private Integer recipientNo;
-	
-	@Column(name="transfer_amount")
-	private Double transferAmount;
-	
-	@Column(name="description")
-	private String description;
-	
 	@Column(name="accountType")
 	private String accountType;
 	
+	@OneToMany(mappedBy = "customer")
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private Collection<Transaction> transactions;
+	
+
+	public Collection<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Collection<Transaction> transactions) {
+		this.transactions = transactions;
+	}
 
 	public String getAccountType() {
 		return accountType;
@@ -71,36 +82,12 @@ public class Customer implements Serializable {
 		this.accountType = accountType;
 	}
 
-	public Integer getRecipientNo() {
-		return recipientNo;
-	}
-
-	public void setRecipientNo(Integer recipientNo) {
-		this.recipientNo = recipientNo;
-	}
-
 	public Integer getAccountNo() {
 		return accountNo;
 	}
 
 	public void setAccountNo(Integer accountNo) {
 		this.accountNo = accountNo;
-	}
-
-	public Double getTransferAmount() {
-		return transferAmount;
-	}
-
-	public void setTransferAmount(Double transferAmount) {
-		this.transferAmount = transferAmount;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getPassword() {
